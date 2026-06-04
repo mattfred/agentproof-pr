@@ -1,0 +1,10 @@
+ui_paths:
+  - "src/**/*.tsx"
+  - "src/**/*.jsx"
+require_screenshot_for_ui_changes: true
+placeholder_patterns:
+  - "console.log"
+  - "debugger"
+  - "FIXME"
+blocking_rules:
+  - placeholders

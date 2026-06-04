@@ -1,0 +1,6 @@
+minimum_score: 75
+require_linked_ticket: true
+require_summary: true
+require_test_evidence: true
+blocking_rules:
+  - linked_ticket
