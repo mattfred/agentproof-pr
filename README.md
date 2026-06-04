@@ -17,9 +17,16 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
     steps:
       - uses: actions/checkout@v4
       - uses: mattfred/agentproof-pr@main
+        with:
+          token: ${{ github.token }}
+          comment_on_pr: true
 ```
 
 ## Configuration

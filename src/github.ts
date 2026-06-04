@@ -46,3 +46,53 @@ export async function getPRData(token: string): Promise<PRData> {
     diff: diff as unknown as string,
   };
 }
+
+export async function commentOnPR(token: string, body: string): Promise<void> {
+  const octokit = github.getOctokit(token);
+  const context = github.context;
+  const prNumber = context.payload.pull_request?.number;
+  const owner = context.repo.owner;
+  const repo = context.repo.repo;
+
+  if (!prNumber) {
+    core.warning('Not a pull request, skipping comment.');
+    return;
+  }
+
+  const marker = '<!-- agentproof-pr-comment -->';
+
+  try {
+    const { data: comments } = await octokit.rest.issues.listComments({
+      owner,
+      repo,
+      issue_number: prNumber,
+    });
+
+    const existingComment = comments.find((c) => c.body?.includes(marker));
+
+    if (existingComment) {
+      core.info(`Updating existing PR comment ${existingComment.id}`);
+      await octokit.rest.issues.updateComment({
+        owner,
+        repo,
+        comment_id: existingComment.id,
+        body,
+      });
+    } else {
+      core.info('Creating new PR comment');
+      await octokit.rest.issues.createComment({
+        owner,
+        repo,
+        issue_number: prNumber,
+        body,
+      });
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      core.warning(`Failed to comment on PR: ${error.message}`);
+      core.info('This might be due to insufficient permissions (e.g., from a forked PR).');
+    } else {
+      core.warning('An unknown error occurred while commenting on the PR.');
+    }
+  }
+}

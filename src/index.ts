@@ -1,13 +1,14 @@
 import * as core from '@actions/core';
 import { loadConfig } from './config.js';
-import { getPRData } from './github.js';
+import { getPRData, commentOnPR } from './github.js';
 import { calculateReadiness } from './scoring.js';
-import { generateMarkdownSummary } from './report.js';
+import { generateMarkdownSummary, generatePRComment } from './report.js';
 
 async function run(): Promise<void> {
   try {
-    const token = core.getInput('github-token', { required: true });
+    const token = core.getInput('token', { required: true });
     const configPath = core.getInput('config-path') || '.agentproof.yml';
+    const commentOnPrEnabled = core.getBooleanInput('comment_on_pr');
 
     const config = loadConfig(configPath);
     const prData = await getPRData(token);
@@ -22,6 +23,12 @@ async function run(): Promise<void> {
     // Generate summary
     const summary = generateMarkdownSummary(result);
     await core.summary.addRaw(summary).write();
+
+    // Comment on PR
+    if (commentOnPrEnabled) {
+      const prComment = generatePRComment(result);
+      await commentOnPR(token, prComment);
+    }
 
     if (!result.passed) {
       if (result.blockersFailed) {

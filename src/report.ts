@@ -28,3 +28,51 @@ export function generateMarkdownSummary(result: ScoringResult): string {
 
   return summary;
 }
+
+export function generatePRComment(result: ScoringResult): string {
+  const marker = '<!-- agentproof-pr-comment -->';
+  const status = result.passed ? 'Ready' : 'Not Ready';
+
+  let comment = `# AgentProof PR Readiness\n\n`;
+  comment += `**Status:** ${status}\n`;
+  comment += `**Score:** ${result.normalizedScore}/100\n\n`;
+
+  const blockingIssues = result.ruleResults.filter((r) => r.isBlocking && !r.passed);
+  if (blockingIssues.length > 0) {
+    comment += `## Blocking Issues\n\n`;
+    for (const r of blockingIssues) {
+      comment += `* ${r.message}\n`;
+    }
+    comment += `\n`;
+  }
+
+  const warnings = result.ruleResults.filter((r) => !r.isBlocking && !r.passed);
+  if (warnings.length > 0) {
+    comment += `## Warnings\n\n`;
+    for (const r of warnings) {
+      comment += `* ${r.message}\n`;
+    }
+    comment += `\n`;
+  }
+
+  const passedChecks = result.ruleResults.filter((r) => r.passed);
+  if (passedChecks.length > 0) {
+    comment += `## Passed Checks\n\n`;
+    for (const r of passedChecks) {
+      comment += `* ${r.message}\n`;
+    }
+    comment += `\n`;
+  }
+
+  const suggestedFixes = result.ruleResults.filter((r) => !r.passed && r.details);
+  if (suggestedFixes.length > 0) {
+    comment += `## Suggested Fixes\n\n`;
+    for (const r of suggestedFixes) {
+      comment += `* ${r.details}\n`;
+    }
+    comment += `\n`;
+  }
+
+  comment += `${marker}\n`;
+  return comment;
+}
