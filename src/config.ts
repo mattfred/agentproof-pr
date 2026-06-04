@@ -17,6 +17,7 @@ export interface AgentProofConfig {
   ticket_patterns: string[];
   ui_paths: string[];
   placeholder_patterns: string[];
+  placeholder_ignore_paths: string[];
 
   weights: {
     linked_ticket: number;
@@ -64,6 +65,14 @@ export const DEFAULT_CONFIG: AgentProofConfig = {
     'lorem ipsum',
     'console.log',
     'debugger',
+  ],
+  placeholder_ignore_paths: [
+    '.agentproof.yml',
+    '.github/pull_request_template.md',
+    'docs/**',
+    'examples/**',
+    'README.md',
+    'CHANGELOG.md',
   ],
 
   weights: {

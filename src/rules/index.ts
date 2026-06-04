@@ -11,11 +11,17 @@ export interface RuleResult {
   isBlocking: boolean;
 }
 
+export interface PRFile {
+  filename: string;
+  patch?: string;
+}
+
 export interface PRData {
   title: string;
   body: string;
   changedFiles: string[];
   diff?: string;
+  files?: PRFile[];
 }
 
 export interface Rule {

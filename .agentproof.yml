@@ -6,6 +6,13 @@ require_test_evidence: true
 require_risk: true
 require_rollback: true
 require_screenshot_for_ui_changes: false
+placeholder_ignore_paths:
+  - ".agentproof.yml"
+  - ".github/pull_request_template.md"
+  - "docs/**"
+  - "examples/**"
+  - "README.md"
+  - "CHANGELOG.md"
 blocking_rules:
   - summary
   - test_evidence

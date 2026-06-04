@@ -33,6 +33,14 @@ placeholder_patterns:
   - "console.log"
   - "debugger"
 
+placeholder_ignore_paths:
+  - ".agentproof.yml"
+  - ".github/pull_request_template.md"
+  - "docs/**"
+  - "examples/**"
+  - "README.md"
+  - "CHANGELOG.md"
+
 weights:
   linked_ticket: 10
   summary: 10

@@ -6,5 +6,8 @@ placeholder_patterns:
   - "console.log"
   - "debugger"
   - "FIXME"
+placeholder_ignore_paths:
+  - "src/**/*.test.tsx"
+  - "docs/**"
 blocking_rules:
   - placeholders

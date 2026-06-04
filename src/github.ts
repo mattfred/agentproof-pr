@@ -44,6 +44,10 @@ export async function getPRData(token: string): Promise<PRData> {
     body: pr.body || '',
     changedFiles: files.map((f) => f.filename),
     diff: diff as unknown as string,
+    files: files.map((f) => ({
+      filename: f.filename,
+      patch: f.patch,
+    })),
   };
 }
 
