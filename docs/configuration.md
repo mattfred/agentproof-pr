@@ -18,6 +18,7 @@ AgentProof PR can be configured using a `.agentproof.yml` file in the root of yo
 | `ticket_patterns` | `string[]` | `['[A-Z]+-[0-9]+', '#[0-9]+']` | Regex patterns to identify linked tickets. |
 | `ui_paths` | `string[]` | (see below) | Glob patterns to identify UI-related files. |
 | `placeholder_patterns` | `string[]` | (see below) | Patterns to identify placeholder or debug code (e.g., TODO, console.log). |
+| `placeholder_ignore_paths` | `string[]` | (see below) | Glob patterns of files to ignore during placeholder scanning. |
 | `blocking_rules` | `string[]` | `[]` | List of rule IDs that should block the PR if they fail. |
 
 ### Default UI Paths
@@ -44,6 +45,17 @@ placeholder_patterns:
   - "lorem ipsum"
   - "console.log"
   - "debugger"
+```
+
+### Default Placeholder Ignore Paths
+```yaml
+placeholder_ignore_paths:
+  - ".agentproof.yml"
+  - ".github/pull_request_template.md"
+  - "docs/**"
+  - "examples/**"
+  - "README.md"
+  - "CHANGELOG.md"
 ```
 
 ## Weights

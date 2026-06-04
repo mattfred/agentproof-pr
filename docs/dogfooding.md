@@ -21,6 +21,16 @@ The readiness score (0-100) is calculated based on the presence and quality of s
 
 Each rule has a weight, and the final score is the weighted average of passing rules.
 
+## Workflow Configuration
+
+This repository's dogfooding workflow is configured to use the local version of the action:
+
+```yaml
+- uses: ./
+```
+
+We intentionally use `uses: ./` (instead of a tagged version or `main`) so that every pull request validates the implementation changes contained within that specific branch. This ensures that improvements or fixes to the action logic are tested by the action itself before being merged.
+
 ## Requirements for Contributors
 
 To ensure your PR passes the AgentProof check, please use the provided [Pull Request Template](../.github/pull_request_template.md) and include:

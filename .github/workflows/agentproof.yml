@@ -13,7 +13,7 @@ jobs:
       checks: read
     steps:
       - uses: actions/checkout@v4
-      - uses: mattfred/agentproof-pr@main
+      - uses: ./
         with:
           token: ${{ github.token }}
           comment_on_pr: true

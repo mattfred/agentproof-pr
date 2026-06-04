@@ -1,5 +1,6 @@
 import { AgentProofConfig } from '../config.js';
 import { PRData, Rule, RuleResult } from './index.js';
+import { minimatch } from 'minimatch';
 
 export class PlaceholdersRule implements Rule {
   id = 'placeholders';
@@ -10,23 +11,60 @@ export class PlaceholdersRule implements Rule {
     const isBlocking = config.blocking_rules.includes(this.id);
 
     const patterns = config.placeholder_patterns;
-    const diff = prData.diff || '';
+    const ignorePaths = config.placeholder_ignore_paths || [];
 
-    // We only care about added lines in the diff
-    const addedLines = diff
-      .split('\n')
-      .filter((line) => line.startsWith('+') && !line.startsWith('+++'));
+    const results: { pattern: string; file: string; ignored: boolean }[] = [];
 
-    const foundPlaceholders: string[] = [];
+    // Use prData.files if available, otherwise fallback to parsing prData.diff
+    const fileEntries: { filename: string; patch: string }[] = [];
 
-    for (const pattern of patterns) {
-      const regex = new RegExp(pattern, 'i');
-      if (addedLines.some((line) => regex.test(line))) {
-        foundPlaceholders.push(pattern);
+    if (prData.files && prData.files.length > 0) {
+      for (const f of prData.files) {
+        if (f.patch) {
+          fileEntries.push({ filename: f.filename, patch: f.patch });
+        }
+      }
+    } else if (prData.diff) {
+      // Very basic diff parsing for backward compatibility (e.g. in tests)
+      if (prData.diff.includes('diff --git')) {
+        const parts = prData.diff.split(/^diff --git /m);
+        for (const part of parts) {
+          if (!part.trim()) continue;
+          const lines = part.split('\n');
+          const fileMatch = lines[0].match(/a\/(.*) b\//);
+          const filename = fileMatch ? fileMatch[1] : 'unknown';
+          fileEntries.push({ filename, patch: part });
+        }
+      } else {
+        // Just a raw snippet (like in some tests)
+        fileEntries.push({ filename: 'unknown', patch: prData.diff });
       }
     }
 
-    if (foundPlaceholders.length === 0) {
+    for (const entry of fileEntries) {
+      const isIgnored = ignorePaths.some((pattern) =>
+        minimatch(entry.filename, pattern)
+      );
+
+      const addedLines = entry.patch
+        .split('\n')
+        .filter((line) => line.startsWith('+') && !line.startsWith('+++'));
+
+      for (const pattern of patterns) {
+        const regex = new RegExp(pattern, 'i');
+        if (addedLines.some((line) => regex.test(line))) {
+          results.push({
+            pattern,
+            file: entry.filename,
+            ignored: isIgnored,
+          });
+        }
+      }
+    }
+
+    const nonIgnored = results.filter((r) => !r.ignored);
+
+    if (results.length === 0) {
       return {
         id: this.id,
         name: this.name,
@@ -38,14 +76,29 @@ export class PlaceholdersRule implements Rule {
       };
     }
 
+    const reportLines = results.map(
+      (r) => `- \`${r.pattern}\` in \`${r.file}\`${r.ignored ? ' (ignored)' : ''}`
+    );
+
+    const uniquePatterns = [
+      ...new Set(nonIgnored.map((r) => r.pattern)),
+    ].join(', ');
+
+    const message =
+      nonIgnored.length === 0
+        ? 'No active placeholder or debug patterns found (all matches were ignored).'
+        : `Found placeholder or debug patterns: ${uniquePatterns}`;
+
     return {
       id: this.id,
       name: this.name,
-      passed: false,
-      score: 0,
+      passed: nonIgnored.length === 0,
+      score: nonIgnored.length === 0 ? maxScore : 0,
       maxScore,
-      message: `Found placeholder or debug patterns: ${foundPlaceholders.join(', ')}`,
-      details: 'Please remove TODOs, console.logs, or other placeholders before merging.',
+      message,
+      details: `Identified patterns:\n\n${reportLines.join(
+        '\n'
+      )}\n\nPlease remove any placeholders or debug code before merging.`,
       isBlocking,
     };
   }

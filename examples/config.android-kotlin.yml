@@ -10,5 +10,8 @@ placeholder_patterns:
   - "Log.d"
   - "Log.v"
   - "println"
+placeholder_ignore_paths:
+  - "**/test/**"
+  - "**/androidTest/**"
 blocking_rules:
   - screenshots
