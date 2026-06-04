@@ -1,0 +1,34 @@
+# AgentProof PR Configuration for TypeScript/Node.js projects
+
+minimum_score: 85
+
+# Ensure we have a ticket and a summary
+blocking_rules:
+  - linked_ticket
+  - summary
+
+# TypeScript specific UI paths (if using something like React/Vue)
+ui_paths:
+  - "src/**/*.tsx"
+  - "src/**/*.jsx"
+  - "public/**/*.html"
+
+# Common JS/TS placeholders to avoid
+placeholder_patterns:
+  - "console.log"
+  - "debugger"
+  - "TODO"
+  - "FIXME"
+  - "stub"
+
+# Ignore test files and compiled code for placeholder checks
+placeholder_ignore_paths:
+  - "**/*.test.ts"
+  - "**/*.spec.ts"
+  - "dist/**"
+  - "node_modules/**"
+
+# Give more weight to test evidence in TS projects
+weights:
+  test_evidence: 30
+  acceptance_criteria: 20

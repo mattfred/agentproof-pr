@@ -1,6 +1,20 @@
-minimum_score: 75
+# Generic AgentProof PR Configuration
+# Works for most projects with default settings
+
+minimum_score: 80
+
+# Basic requirements
 require_linked_ticket: true
 require_summary: true
+require_acceptance_criteria: true
 require_test_evidence: true
+
+# Blocking rules ensure these MUST be present
 blocking_rules:
   - linked_ticket
+  - summary
+
+# Use default weights, but you can override them here
+# weights:
+#   acceptance_criteria: 25
+#   test_evidence: 25
