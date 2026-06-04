@@ -1,0 +1,22 @@
+name: 'AgentProof PR'
+description: 'Check whether a pull request is ready for human review'
+author: 'mattfred'
+inputs:
+  github-token:
+    description: 'GitHub token'
+    required: true
+    default: ${{ github.token }}
+  config-path:
+    description: 'Path to the configuration file'
+    required: false
+    default: '.agentproof.yml'
+outputs:
+  readiness_score:
+    description: 'The calculated readiness score (0-100)'
+  readiness_status:
+    description: 'The readiness status (passed or failed)'
+  readiness_report_json:
+    description: 'The detailed readiness report in JSON format'
+runs:
+  using: 'node24'
+  main: 'dist/index.js'
