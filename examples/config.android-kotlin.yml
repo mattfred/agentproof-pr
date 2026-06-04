@@ -1,17 +1,35 @@
+# AgentProof PR Configuration for Android/Kotlin projects
+
+minimum_score: 80
+
+# Android UI paths (XML and Compose)
 ui_paths:
   - "app/src/main/res/layout/**"
   - "app/src/main/java/**/*.kt"
   - "app/src/main/kotlin/**/*.kt"
+  - "app/src/main/res/drawable/**"
   - "app/src/main/xml/**"
+
 require_screenshot_for_ui_changes: true
+
+# Kotlin/Android specific placeholders
 placeholder_patterns:
   - "TODO"
   - "FIXME"
   - "Log.d"
   - "Log.v"
+  - "Log.e"
   - "println"
+
+# Ignore tests
 placeholder_ignore_paths:
   - "**/test/**"
   - "**/androidTest/**"
+
+# Ensure we have a ticket and screenshots
 blocking_rules:
   - screenshots
+  - linked_ticket
+
+weights:
+  test_evidence: 30

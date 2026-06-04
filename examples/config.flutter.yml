@@ -1,5 +1,29 @@
+# AgentProof PR Configuration for Flutter projects
+
+minimum_score: 80
+
+# Flutter UI paths
 ui_paths:
   - "lib/**/*.dart"
+  - "assets/**"
+
 require_screenshot_for_ui_changes: true
+
+# Dart/Flutter placeholders
+placeholder_patterns:
+  - "print("
+  - "// TODO"
+  - "// FIXME"
+  - "debugPrint("
+
+placeholder_ignore_paths:
+  - "test/**"
+  - "lib/generated/**"
+
+# Increase weight for screenshots in Flutter
 weights:
-  screenshots: 20
+  screenshots: 25
+  test_evidence: 25
+
+blocking_rules:
+  - linked_ticket

@@ -1,13 +1,33 @@
+# AgentProof PR Configuration for React projects
+
+minimum_score: 85
+
+# UI paths to trigger screenshot requirement
 ui_paths:
   - "src/**/*.tsx"
   - "src/**/*.jsx"
+  - "src/**/*.scss"
+  - "src/**/*.css"
+
 require_screenshot_for_ui_changes: true
+
+# React specific placeholders
 placeholder_patterns:
   - "console.log"
   - "debugger"
   - "FIXME"
+  - "TODO"
+  - "alert("
+
+# Ignore tests and docs
 placeholder_ignore_paths:
   - "src/**/*.test.tsx"
+  - "src/**/*.test.ts"
   - "docs/**"
+  - "examples/**"
+
+# Critical rules
 blocking_rules:
   - placeholders
+  - screenshots
+  - summary
