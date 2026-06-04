@@ -1,0 +1,14 @@
+ui_paths:
+  - "app/src/main/res/layout/**"
+  - "app/src/main/java/**/*.kt"
+  - "app/src/main/kotlin/**/*.kt"
+  - "app/src/main/xml/**"
+require_screenshot_for_ui_changes: true
+placeholder_patterns:
+  - "TODO"
+  - "FIXME"
+  - "Log.d"
+  - "Log.v"
+  - "println"
+blocking_rules:
+  - screenshots

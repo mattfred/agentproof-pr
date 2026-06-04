@@ -61,17 +61,11 @@ You can customize the importance of each rule by adjusting its weight in the `we
 | `screenshots` | 10 |
 | `placeholders` | 10 |
 
-## Example Configuration
+## Example Configurations
 
-```yaml
-minimum_score: 85
-fail_on_blockers: true
+You can find specialized example configurations in the [examples](../examples) directory:
 
-blocking_rules:
-  - linked_ticket
-  - placeholders
-
-weights:
-  test_evidence: 30
-  acceptance_criteria: 25
-```
+- [Generic](../examples/config.generic.yml)
+- [React](../examples/config.react.yml)
+- [Flutter](../examples/config.flutter.yml)
+- [Android/Kotlin](../examples/config.android-kotlin.yml)

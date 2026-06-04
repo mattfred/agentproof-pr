@@ -2,7 +2,6 @@ import { ScoringResult } from './scoring.js';
 
 export function generateMarkdownSummary(result: ScoringResult): string {
   const statusEmoji = result.passed ? '✅' : '❌';
-  const scoreColor = result.normalizedScore >= 80 ? 'green' : result.normalizedScore >= 60 ? 'yellow' : 'red';
 
   let summary = `### AgentProof PR Readiness Report\n\n`;
   summary += `**Status:** ${statusEmoji} ${result.passed ? 'PASSED' : 'FAILED'}\n`;

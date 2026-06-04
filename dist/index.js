@@ -34583,7 +34583,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.generateMarkdownSummary = generateMarkdownSummary;
 function generateMarkdownSummary(result) {
     const statusEmoji = result.passed ? '✅' : '❌';
-    const scoreColor = result.normalizedScore >= 80 ? 'green' : result.normalizedScore >= 60 ? 'yellow' : 'red';
     let summary = `### AgentProof PR Readiness Report\n\n`;
     summary += `**Status:** ${statusEmoji} ${result.passed ? 'PASSED' : 'FAILED'}\n`;
     summary += `**Readiness Score:** ${result.normalizedScore}/100\n\n`;
