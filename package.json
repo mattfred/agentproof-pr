@@ -1,6 +1,6 @@
 {
   "name": "agentproof-pr",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A GitHub Action that checks whether a pull request is ready for human review.",
   "main": "dist/index.js",
   "scripts": {
