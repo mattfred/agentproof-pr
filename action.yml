@@ -2,10 +2,14 @@ name: 'AgentProof PR'
 description: 'Check whether a pull request is ready for human review'
 author: 'mattfred'
 inputs:
-  github-token:
+  token:
     description: 'GitHub token'
     required: true
     default: ${{ github.token }}
+  comment_on_pr:
+    description: 'Whether to post a comment on the pull request'
+    required: false
+    default: 'true'
   config-path:
     description: 'Path to the configuration file'
     required: false
