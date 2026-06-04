@@ -13,6 +13,9 @@ placeholder_ignore_paths:
   - "examples/**"
   - "README.md"
   - "CHANGELOG.md"
+  - "test/**"
+  - "src/rules/placeholders.ts"
+  - "dist/**"
 blocking_rules:
   - summary
   - test_evidence

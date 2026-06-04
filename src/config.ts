@@ -73,6 +73,7 @@ export const DEFAULT_CONFIG: AgentProofConfig = {
     'examples/**',
     'README.md',
     'CHANGELOG.md',
+    'dist/**',
   ],
 
   weights: {

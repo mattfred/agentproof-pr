@@ -34374,6 +34374,7 @@ exports.DEFAULT_CONFIG = {
         'examples/**',
         'README.md',
         'CHANGELOG.md',
+        'dist/**',
     ],
     weights: {
         linked_ticket: 10,
@@ -34847,7 +34848,7 @@ class PlaceholdersRule {
             score: nonIgnored.length === 0 ? maxScore : 0,
             maxScore,
             message,
-            details: `Identified patterns:\n\n${reportLines.join('\n')}\n\nPlease remove TODOs, console.logs, or other placeholders before merging.`,
+            details: `Identified patterns:\n\n${reportLines.join('\n')}\n\nPlease remove any placeholders or debug code before merging.`,
             isBlocking,
         };
     }

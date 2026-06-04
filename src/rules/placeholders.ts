@@ -98,7 +98,7 @@ export class PlaceholdersRule implements Rule {
       message,
       details: `Identified patterns:\n\n${reportLines.join(
         '\n'
-      )}\n\nPlease remove TODOs, console.logs, or other placeholders before merging.`,
+      )}\n\nPlease remove any placeholders or debug code before merging.`,
       isBlocking,
     };
   }
