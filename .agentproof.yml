@@ -1,0 +1,12 @@
+minimum_score: 80
+require_linked_ticket: true
+require_summary: true
+require_acceptance_criteria: true
+require_test_evidence: true
+require_risk: true
+require_rollback: true
+require_screenshot_for_ui_changes: false
+blocking_rules:
+  - summary
+  - test_evidence
+  - acceptance_criteria

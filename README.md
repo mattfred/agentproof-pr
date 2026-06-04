@@ -4,6 +4,10 @@ A GitHub Action that checks whether a pull request is ready for human review, es
 
 AgentProof PR scores pull requests for linked tickets, acceptance criteria coverage, test evidence, CI status, screenshots if UI changes, placeholders, clean summary, and risk/rollback notes.
 
+## Dogfooding
+
+This project dogfoods AgentProof PR to ensure its own pull requests meet high standards of quality and readiness. See [docs/dogfooding.md](docs/dogfooding.md) for more details.
+
 ## Usage
 
 Add a workflow file to your repository (e.g., `.github/workflows/agentproof.yml`):

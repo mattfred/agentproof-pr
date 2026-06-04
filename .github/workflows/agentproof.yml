@@ -1,0 +1,19 @@
+name: AgentProof PR
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened, ready_for_review]
+
+jobs:
+  agentproof:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+      checks: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mattfred/agentproof-pr@main
+        with:
+          token: ${{ github.token }}
+          comment_on_pr: true
