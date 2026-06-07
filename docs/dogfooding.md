@@ -26,7 +26,9 @@ Each rule has a weight, and the final score is the weighted average of passing r
 This repository's dogfooding workflow is configured to use the local version of the action:
 
 ```yaml
-- uses: ./
+steps:
+  - uses: actions/checkout@v4
+  - uses: ./
 ```
 
 We intentionally use `uses: ./` (instead of a tagged version or `main`) so that every pull request validates the implementation changes contained within that specific branch. This ensures that improvements or fixes to the action logic are tested by the action itself before being merged.
