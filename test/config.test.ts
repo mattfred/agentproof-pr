@@ -1,6 +1,8 @@
 import { loadConfig, DEFAULT_CONFIG } from '../src/config.js';
 import * as fs from 'fs';
 
+import * as core from '@actions/core';
+
 jest.mock('fs');
 jest.mock('@actions/core', () => ({
   info: jest.fn(),
@@ -8,10 +10,13 @@ jest.mock('@actions/core', () => ({
 }));
 
 describe('config', () => {
-  it('should return default config if file does not exist', () => {
+  it('should return default config if file does not exist and log checkout guidance', () => {
     (fs.existsSync as jest.Mock).mockReturnValue(false);
     const config = loadConfig('.agentproof.yml');
     expect(config).toEqual(DEFAULT_CONFIG);
+    expect(core.info).toHaveBeenCalledWith(
+      expect.stringContaining('make sure your workflow runs actions/checkout before AgentProof')
+    );
   });
 
   it('should override defaults with values from file', () => {

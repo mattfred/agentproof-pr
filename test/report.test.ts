@@ -130,8 +130,7 @@ describe('report generation', () => {
         blockersFailed: true
       };
 
-      const comment = generatePRComment(result);
-      expect(comment).toContain('# AgentProof PR Readiness');
+      const comment = generatePRComment(result, 80);
       expect(comment).toContain('**Status:** Not Ready');
       expect(comment).toContain('**Score:** 72/100');
       expect(comment).toContain('## Blocking Issues');
@@ -167,7 +166,7 @@ describe('report generation', () => {
         blockersFailed: false
       };
 
-      const comment = generatePRComment(result);
+      const comment = generatePRComment(result, 100);
       expect(comment).toContain('**Status:** Ready');
       expect(comment).toContain('**Score:** 100/100');
       expect(comment).not.toContain('## Blocking Issues');
@@ -175,6 +174,33 @@ describe('report generation', () => {
       expect(comment).toContain('## Passed Checks');
       expect(comment).toContain('* Test passed.');
       expect(comment).not.toContain('## Suggested Fixes');
+    });
+
+    it('should show score below minimum as a blocking issue', () => {
+      const result: ScoringResult = {
+        passed: false,
+        score: 70,
+        totalPossibleScore: 100,
+        normalizedScore: 70,
+        ruleResults: [
+          {
+            id: 'test',
+            name: 'Test',
+            passed: true,
+            score: 70,
+            maxScore: 100,
+            message: 'Test passed but low score.',
+            isBlocking: false
+          }
+        ],
+        blockersFailed: false
+      };
+
+      const comment = generatePRComment(result, 80);
+      expect(comment).toContain('## Blocking Issues');
+      expect(comment).toContain('Readiness score 70 is below the minimum required score of 80.');
+      expect(comment).toContain('## Passed Checks');
+      expect(comment).not.toContain('## Warnings');
     });
   });
 });
