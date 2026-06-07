@@ -29,7 +29,9 @@ jobs:
 
 ## 2. (Optional) Customize Configuration
 
-By default, AgentProof PR works out of the box with sensible defaults. To customize it, create a `.agentproof.yml` file in your repository root:
+By default, AgentProof PR works out of the box with sensible defaults. To customize it, create a `.agentproof.yml` file in your repository root.
+
+**Note:** You must include the `actions/checkout` step in your workflow (as shown above) if you want AgentProof PR to read your `.agentproof.yml` file. Without it, the action cannot access the configuration file and will use default settings.
 
 ```yaml
 minimum_score: 85

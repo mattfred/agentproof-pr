@@ -26,7 +26,7 @@ async function run(): Promise<void> {
 
     // Comment on PR
     if (commentOnPrEnabled) {
-      const prComment = generatePRComment(result);
+      const prComment = generatePRComment(result, config.minimum_score);
       await commentOnPR(token, prComment);
     }
 

@@ -102,7 +102,9 @@ export function loadConfig(configPath: string): AgentProofConfig {
       core.warning(`Failed to load config from ${configPath}, using defaults. Error: ${error}`);
     }
   } else {
-    core.info(`Config file not found at ${configPath}, using defaults.`);
+    core.info(
+      `Config file not found at ${configPath}, using defaults. If this file exists in your repo, make sure your workflow runs actions/checkout before AgentProof.`
+    );
   }
 
   return {

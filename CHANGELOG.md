@@ -8,6 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Explicit checkout guidance in logs and documentation.
+
+### Changed
+- Improved PR comment classification: below-minimum-score now appears as a Blocking Issue.
+- Updated all examples to include `actions/checkout@v4` to ensure `.agentproof.yml` is readable.
+- Improved missing config log message with troubleshooting advice.
+
+## [0.1.0] - 2026-06-07
+
+### Added
 - Initial alpha release preparation.
 - Rewritten README for faster onboarding.
 - New documentation: Getting Started, Rules, Security, Troubleshooting, Alpha Feedback, Roadmap, and Releasing.

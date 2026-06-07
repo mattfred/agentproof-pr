@@ -29,7 +29,7 @@ export function generateMarkdownSummary(result: ScoringResult): string {
   return summary;
 }
 
-export function generatePRComment(result: ScoringResult): string {
+export function generatePRComment(result: ScoringResult, minimumScore: number): string {
   const marker = '<!-- agentproof-pr-comment -->';
   const status = result.passed ? 'Ready' : 'Not Ready';
 
@@ -38,6 +38,19 @@ export function generatePRComment(result: ScoringResult): string {
   comment += `**Score:** ${result.normalizedScore}/100\n\n`;
 
   const blockingIssues = result.ruleResults.filter((r) => r.isBlocking && !r.passed);
+
+  if (result.normalizedScore < minimumScore) {
+    blockingIssues.push({
+      id: 'minimum_score',
+      name: 'minimum_score',
+      passed: false,
+      score: 0,
+      maxScore: 0,
+      message: `Readiness score ${result.normalizedScore} is below the minimum required score of ${minimumScore}.`,
+      isBlocking: true,
+    });
+  }
+
   if (blockingIssues.length > 0) {
     comment += `## Blocking Issues\n\n`;
     for (const r of blockingIssues) {

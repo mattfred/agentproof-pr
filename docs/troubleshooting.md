@@ -29,6 +29,11 @@ permissions:
 - Add a reference like `JIRA-123` or `#456` to your PR description.
 - If your team uses a different pattern, update `ticket_patterns` in your `.agentproof.yml`.
 
+### 5. `Config file not found at .agentproof.yml, using defaults.`
+**Symptom**: You see this message in your action logs even though you have a `.agentproof.yml` file in your repository.
+**Cause**: Your workflow did not check out the repository before running AgentProof PR.
+**Fix**: Add `actions/checkout@v4` before the AgentProof PR step in your workflow.
+
 ## Debugging
 
 To see more detailed logs from AgentProof PR, you can enable Step Debug Logging in GitHub Actions. Set the repository secret `ACTIONS_STEP_DEBUG` to `true`.
