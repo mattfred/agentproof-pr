@@ -23,9 +23,9 @@ We follow [Semantic Versioning](https://semver.org/).
 
 ## Tag Recommendation
 
-Always recommend users to pin to a specific tag (e.g., `v0.1.0`) instead of `main` to ensure stability and reproducibility in their CI/CD pipelines.
+Always recommend users to pin to a major version tag (e.g., `v1`) or a specific tag (e.g., `v0.2.0-alpha`) instead of `main` to ensure stability and reproducibility in their CI/CD pipelines.
 
 ```yaml
 - uses: actions/checkout@v4
-- uses: mattfred/agentproof-pr@v0.1.0
+- uses: mattfred/agentproof-pr@v1
 ```
