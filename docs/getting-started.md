@@ -21,7 +21,7 @@ jobs:
       issues: write
     steps:
       - uses: actions/checkout@v4
-      - uses: mattfred/agentproof-pr@v0.1.0
+      - uses: mattfred/agentproof-pr@v1
         with:
           token: ${{ github.token }}
           comment_on_pr: true

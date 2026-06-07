@@ -6,7 +6,7 @@ Currently, only the latest version of AgentProof PR is supported for security up
 
 | Version | Supported          |
 | ------- | ------------------ |
-| v0.1.x  | :white_check_mark: |
+| v0.x    | :white_check_mark: |
 | < v0.1  | :x:                |
 
 ## Reporting a Vulnerability
