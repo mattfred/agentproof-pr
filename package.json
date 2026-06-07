@@ -1,7 +1,7 @@
 {
   "name": "agentproof-pr",
   "version": "0.1.0",
-  "description": "A GitHub Action that checks whether a pull request is ready for human review.",
+  "description": "Stop reviewing half-finished AI-generated pull requests.",
   "main": "dist/index.js",
   "scripts": {
     "build": "ncc build src/index.ts -o dist --source-map --license licenses.txt",

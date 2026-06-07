@@ -1,5 +1,5 @@
 name: 'AgentProof PR'
-description: 'Check whether a pull request is ready for human review'
+description: 'Stop reviewing half-finished AI-generated pull requests.'
 author: 'mattfred'
 inputs:
   token:
