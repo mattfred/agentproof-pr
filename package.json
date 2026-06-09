@@ -1,6 +1,6 @@
 {
   "name": "agentproof-pr",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Stop reviewing half-finished AI-generated pull requests.",
   "main": "dist/index.js",
   "scripts": {
