@@ -1,0 +1,58 @@
+name: Alpha feedback
+description: Share feedback after trying AgentProof PR
+title: "[Alpha Feedback]: "
+labels:
+  - alpha-feedback
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for trying AgentProof PR. This feedback helps improve the alpha.
+
+  - type: input
+    id: repo-type
+    attributes:
+      label: What kind of repo did you test AgentProof on?
+      placeholder: "Example: TypeScript app, Flutter app, API service, monorepo"
+    validations:
+      required: true
+
+  - type: textarea
+    id: setup
+    attributes:
+      label: How was setup?
+      description: Was the install clear? Did anything fail or feel confusing?
+    validations:
+      required: true
+
+  - type: textarea
+    id: score
+    attributes:
+      label: Did the readiness score feel fair?
+      description: Tell us whether the score felt useful, too strict, or too lenient.
+    validations:
+      required: true
+
+  - type: textarea
+    id: warnings
+    attributes:
+      label: Were the warnings actionable?
+      description: Were you able to understand exactly what to fix?
+    validations:
+      required: true
+
+  - type: textarea
+    id: value
+    attributes:
+      label: Did it reduce review friction?
+      description: Did AgentProof catch anything before a human reviewer had to?
+    validations:
+      required: false
+
+  - type: textarea
+    id: improvements
+    attributes:
+      label: What should be improved?
+      description: Rules, docs, config, output format, false positives, missing checks, etc.
+    validations:
+      required: false
