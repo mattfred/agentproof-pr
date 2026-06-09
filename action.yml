@@ -1,6 +1,9 @@
 name: 'AgentProof PR'
 description: 'Stop reviewing half-finished AI-generated pull requests.'
 author: 'mattfred'
+branding:
+  icon: 'check-circle'
+  color: 'green'
 inputs:
   token:
     description: 'GitHub token'
